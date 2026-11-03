@@ -1,0 +1,820 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Clínica de Dolor Jalisco</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap">
+<style>
+/* Concept: a phone-first clinical record, white ground, steel blue and champagne gold taken from the logo. Every photo is a labelled slot (named like a file) the doctor can fill. */
+:root {
+  --stage: #EEF1F5;
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --tint: #F5F7FA;
+  --ink: #1B2A3D;
+  --muted: #566579;
+  --line: #E0E5EC;
+  --navy: #34557C;
+  --on-navy: #EEF2F9;
+  --on-navy-muted: #B3C0D6;
+  --gold: #C4A56B;
+  --gold-ink: #86672A;
+  --note-bg: #FAF6EC;
+  --slot-bg: #EEF1F6;
+  --slot-ink: #566579;
+  --btn-gold-ink: #1B2A3D;
+  --btn2-bg: #34557C;
+  --btn2-ink: #FFFFFF;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { background: var(--stage); color: var(--ink); font-family: var(--font-body); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.12; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+/* the phone column */
+.app { max-width: 480px; margin-inline: auto; background: var(--bg); min-height: 100vh; box-shadow: 0 0 0 1px var(--line); position: relative; overflow-x: clip; }
+.in { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band { padding-block: 52px; }
+.band--alt { background: var(--tint); border-block: 1px solid var(--line); }
+.eyebrow { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink); }
+.on-navy .eyebrow, .head .eyebrow { color: var(--gold-ink); }
+.h2 { font-size: 2rem; }
+.lead { color: var(--muted); }
+.sec-head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 26px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 12px 22px; border-radius: 8px; border: 2px solid transparent; font-weight: 600; text-decoration: none; cursor: pointer; text-align: center; line-height: 1.2; }
+.btn--gold { background: var(--gold); color: var(--btn-gold-ink); }
+.btn--ghost { border-color: var(--navy); color: var(--navy); }
+.btn--solid { background: var(--btn2-bg); color: var(--btn2-ink); }
+.btn--instagram { background: linear-gradient(45deg, #FCAF45, #DD2A7B 55%, #8134AF); color: #fff; }
+.btn--instagram:hover { filter: brightness(0.9); }
+.btn--instagram svg { width: 20px; height: 20px; flex: none; }
+.btn--maps { background: #4285F4; color: #fff; }
+.btn--maps::before { content: ""; flex: none; width: 22px; height: 22px; background: var(--maps-icon) center / contain no-repeat; }
+.btn--maps:hover { background: #3367D6; }
+.btn[data-wa] { background: #25D366; color: #fff; }
+.btn[data-wa]::before { content: ""; flex: none; width: 20px; height: 20px; background: var(--wa-icon) center / contain no-repeat; }
+.btn[data-wa]:hover { background: #1DA851; }
+.wa-link { display: inline-flex !important; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; background: #25D366; color: #fff !important; text-decoration: none !important; }
+.wa-link::before { content: ""; flex: none; width: 18px; height: 18px; background: var(--wa-icon) center / contain no-repeat; }
+.wa-link:hover { background: #1DA851; }
+.btn--block { width: 100%; }
+.btn--sm { min-height: 42px; padding: 8px 16px; font-size: 0.92rem; }
+
+/* header + menu */
+.head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); color: var(--ink); border-bottom: 1px solid var(--line); }
+.head__row { display: flex; align-items: center; justify-content: space-between; min-height: 60px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.15rem; text-decoration: none; line-height: 1.1; }
+.brand__logo { width: 44px; height: 44px; flex: none; mix-blend-mode: multiply; }
+.brand small { max-width: 24ch; }
+.brand small { display: block; font-family: var(--font-body); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink); font-weight: 600; }
+.burger { width: 46px; height: 46px; border: 0; background: transparent; display: grid; place-content: center; gap: 5px; cursor: pointer; border-radius: 8px; }
+.burger span { display: block; width: 24px; height: 2px; background: var(--ink); transition: transform 0.2s ease, opacity 0.2s ease; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu { background: var(--bg); border-top: 1px solid var(--line); padding-block: 8px 20px; display: grid; }
+.menu a { padding: 14px 0; text-decoration: none; font-family: var(--font-display); font-size: 1.35rem; border-bottom: 1px solid var(--line); }
+.menu .btn { margin-top: 16px; font-family: var(--font-body); font-size: 1rem; border-bottom: 2px solid transparent; }
+
+/* photo slots */
+.slot { position: relative; width: 100%; aspect-ratio: var(--r, 4 / 3); max-width: 100%; border-radius: 12px; overflow: hidden; background: var(--slot-bg); border: 1px solid var(--line); }
+.slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.slot__ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 16px; text-align: center; color: var(--slot-ink); border: 2px dashed var(--line); border-radius: 12px; }
+.slot__ph svg { width: 34px; height: 34px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.slot__ph b { font-size: 0.9rem; font-weight: 600; }
+.slot__ph code { font-size: 0.72rem; opacity: 0.85; word-break: break-all; }
+.slot.has-img .slot__ph { display: none; }
+.slot__edit { display: none; }
+.editing .slot { cursor: pointer; outline: 2px solid var(--gold); outline-offset: 2px; }
+.editing .slot__edit { display: flex; position: absolute; right: 8px; bottom: 8px; gap: 6px; z-index: 2; }
+.editing .slot__edit span, .editing .slot__edit button { background: var(--navy); color: #fff; font-size: 0.78rem; font-weight: 600; padding: 7px 11px; border-radius: 6px; border: 0; min-height: 34px; }
+.slot input[type=file] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; display: none; }
+.editing .slot input[type=file] { display: block; }
+.editing .slot__edit button { position: relative; z-index: 3; cursor: pointer; }
+.editbar__btns { display: flex; gap: 8px; margin: 8px 0 6px; flex-wrap: wrap; }
+.editbar button { background: var(--navy); color: #fff; border: 0; border-radius: 6px; min-height: 40px; padding: 8px 12px; font-weight: 600; cursor: pointer; }
+.editbar__hint { display: block; font-weight: 500; }
+.editing [contenteditable] { outline: 1px dashed var(--gold); outline-offset: 3px; cursor: text; }
+.editbar { position: sticky; top: calc(60px + env(safe-area-inset-top, 0px)); z-index: 19; background: var(--gold); color: var(--btn-gold-ink); padding-block: 10px; font-size: 0.85rem; font-weight: 600; line-height: 1.4; }
+
+/* hero */
+.hero { background: linear-gradient(180deg, var(--tint), var(--bg) 70%); color: var(--ink); padding-top: 28px; }
+.hero__logo { display: block; width: 112px; height: 112px; margin: 0 auto 14px; mix-blend-mode: multiply; }
+.hero .eyebrow { text-align: center; }
+.hero__rule { width: 56px; height: 2px; background: var(--gold); margin: 14px auto 0; border: 0; }
+.hero h1 { font-size: 2.55rem; letter-spacing: -0.01em; margin: 14px 0 16px; }
+.hero h1 em { font-style: italic; color: var(--gold-ink); }
+.hero__sub { color: var(--muted); }
+.hero__cta { display: grid; gap: 10px; margin-top: 24px; }
+.hero__photo { margin-top: 32px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-bottom: 36px; }
+.chip { font-size: 0.82rem; font-weight: 600; padding: 8px 13px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); background: var(--tint); }
+.scale { padding-block: 0 40px; }
+.scale__ticks { display: grid; grid-template-columns: repeat(11, 1fr); border-top: 1px solid var(--line); }
+.scale__tick { position: relative; padding-top: 14px; font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.scale__tick::before { content: ""; position: absolute; left: 0; top: -1px; width: 1px; height: 10px; background: var(--gold); transform-origin: top; animation: tick 0.6s ease backwards; }
+.scale__tick:nth-child(1)::before, .scale__tick:nth-child(6)::before, .scale__tick:nth-child(11)::before { height: 18px; }
+.scale__tick:nth-child(2)::before { animation-delay: .05s } .scale__tick:nth-child(3)::before { animation-delay: .1s } .scale__tick:nth-child(4)::before { animation-delay: .15s } .scale__tick:nth-child(5)::before { animation-delay: .2s } .scale__tick:nth-child(6)::before { animation-delay: .25s } .scale__tick:nth-child(7)::before { animation-delay: .3s } .scale__tick:nth-child(8)::before { animation-delay: .35s } .scale__tick:nth-child(9)::before { animation-delay: .4s } .scale__tick:nth-child(10)::before { animation-delay: .45s } .scale__tick:nth-child(11)::before { animation-delay: .5s }
+@keyframes tick { from { transform: scaleY(0); opacity: 0; } }
+.scale__labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.78rem; color: var(--muted); }
+
+/* impact */
+.impact { background: linear-gradient(135deg, #D9C18A, #C4A56B); color: var(--btn-gold-ink); padding-block: 40px; text-align: center; display: grid; gap: 18px; justify-items: center; }
+.impact h2 { font-size: 2.1rem; }
+.impact p { max-width: 32ch; }
+.impact .btn { background: var(--navy); color: #fff; }
+
+/* about */
+.about { display: grid; gap: 22px; }
+.about p + p { margin-top: 12px; }
+.ledger { list-style: none; margin: 8px 0 0; padding: 0; }
+.ledger li { display: grid; gap: 2px; padding: 14px 0; border-top: 1px solid var(--line); }
+.ledger li:last-child { border-bottom: 1px solid var(--line); }
+.ledger span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-ink); }
+.ledger b { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; line-height: 1.25; }
+
+/* horizontal cards */
+.rail { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); scrollbar-width: thin; }
+.card { flex: 0 0 78%; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 12px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card h3 { font-size: 1.35rem; padding-inline: 4px; }
+.card p { color: var(--muted); font-size: 0.95rem; padding-inline: 4px; }
+.card .when { font-size: 0.88rem; color: var(--ink); padding: 10px 12px; background: var(--note-bg); border-radius: 8px; margin-inline: 4px; }
+.rail-hint { font-size: 0.8rem; color: var(--muted); }
+
+/* treatments */
+.treat { display: grid; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 12px 22px; margin-bottom: 20px; }
+.band--alt .treat { background: var(--bg); }
+.treat h3 { font-size: 1.6rem; padding-inline: 6px; }
+.treat > p, .treat .steps, .treat .caveat { margin-inline: 6px; }
+.treat > p { color: var(--muted); }
+.steps { list-style: none; padding: 0; margin-block: 0; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 2px 10px; padding: 12px 0; border-top: 1px solid var(--line); }
+.steps li::before { content: counter(s); font-family: var(--font-display); font-size: 1.5rem; line-height: 1; color: var(--gold-ink); grid-row: span 2; }
+.steps b { font-weight: 600; }
+.steps span { color: var(--muted); font-size: 0.93rem; }
+.caveat { padding: 12px 14px; background: var(--note-bg); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; font-size: 0.9rem; }
+
+/* tool form */
+.form { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label, .field legend { font-size: 0.86rem; font-weight: 600; padding: 0; }
+.field input[type=text], .field select, .field textarea { width: 100%; min-height: 48px; padding: 10px 12px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; }
+.field textarea { min-height: 150px; font-size: 0.92rem; line-height: 1.5; resize: vertical; }
+.field input[type=range] { width: 100%; accent-color: var(--gold); height: 32px; }
+.range-out { display: flex; justify-content: space-between; align-items: end; font-size: 0.8rem; color: var(--muted); }
+.range-out output { font-family: var(--font-display); font-size: 1.6rem; color: var(--ink); line-height: 1; }
+.radios { display: flex; gap: 8px; flex-wrap: wrap; border: 0; margin: 0; padding: 0; min-width: 0; }
+.radios label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; font-weight: 500; font-size: 0.93rem; background: var(--bg); }
+.radios input { accent-color: var(--gold); }
+.fine { font-size: 0.82rem; color: var(--muted); }
+.status { min-height: 1.3em; font-size: 0.86rem; font-weight: 600; color: var(--gold-ink); }
+
+/* testimonials */
+.quote { flex: 0 0 82%; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.quote p { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.4; }
+.quote small { color: var(--muted); font-weight: 600; }
+
+/* gallery */
+.gal { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.gal .slot { border-radius: 10px; }
+.gal .slot:first-child { grid-column: span 2; }
+
+/* places */
+.place { display: grid; gap: 12px; margin-bottom: 26px; }
+.place h3 { font-size: 1.5rem; }
+.place p { color: var(--muted); }
+
+/* faq */
+.acc { border-top: 1px solid var(--line); }
+.acc details { border-bottom: 1px solid var(--line); }
+.acc summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px 0; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.2; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary::after { content: "+"; font-family: var(--font-body); font-size: 1.5rem; color: var(--gold-ink); flex: none; transition: transform 0.2s ease; }
+.acc details[open] summary::after { transform: rotate(45deg); }
+.acc__body { padding: 0 0 20px; display: grid; gap: 10px; color: var(--muted); font-size: 0.97rem; }
+.acc__body strong { color: var(--ink); }
+.alert { margin-top: 24px; padding: 16px; background: var(--note-bg); border: 1px solid var(--gold); border-radius: 10px; font-size: 0.93rem; }
+
+/* footer */
+.foot { background: var(--tint); color: var(--ink); border-top: 1px solid var(--line); padding-block: 40px 130px; display: grid; gap: 22px; }
+.foot h2 { font-size: 1.5rem; }
+.foot p, .foot li { color: var(--muted); font-size: 0.9rem; }
+.social { display: flex; gap: 10px; }
+.social a { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); background: var(--bg); color: var(--navy); text-decoration: none; }
+.social a[data-wa] { border-color: #25D366; background: #25D366; color: #fff; }
+.social a[data-social="instagram"] { border-color: #C13584; background: linear-gradient(45deg, #FCAF45, #DD2A7B 55%, #8134AF); color: #fff; }
+.social a[data-social="facebook"] { border-color: #1877F2; background: #1877F2; color: #fff; }
+.social a:hover { border-color: var(--gold); }
+.social a[data-wa]:hover { border-color: #1DA851; background: #1DA851; }
+.social a[data-social="instagram"]:hover { border-color: #C13584; filter: brightness(0.9); }
+.social a[data-social="facebook"]:hover { border-color: #0866FF; background: #0866FF; }
+.social svg { width: 22px; height: 22px; }
+.menu .social { margin-top: 18px; }
+.foot__brand { display: flex; align-items: center; gap: 12px; }
+.foot__brand img { width: 56px; height: 56px; mix-blend-mode: multiply; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.foot a { color: var(--ink); text-decoration-color: var(--gold); text-underline-offset: 4px; }
+.foot summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.foot details p { margin-top: 8px; }
+
+/* bottom bar */
+.bar { position: fixed; z-index: 15; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; bottom: 0; background: var(--bg); border-top: 1px solid var(--line); box-shadow: 0 -6px 18px rgba(12,26,48,0.08); display: flex; gap: 10px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.bar .btn { flex: 1; min-height: 48px; }
+.bar .btn--ghost { flex: 0 0 auto; }
+
+img[data-logo] { clip-path: circle(43%); mix-blend-mode: normal !important; background: #fff; }
+
+/* assistant */
+:root { --wa-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.3-.5-.4Z'/%3E%3C/svg%3E"); --maps-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2334A853' d='M2 5.5 8 3v15l-6 2.5z'/%3E%3Cpath fill='%23FBBC04' d='m8 3 8 2.5v15L8 18z'/%3E%3Cpath fill='%234285F4' d='m16 5.5 6-2.5v15l-6 2.5z'/%3E%3Cpath fill='%23EA4335' d='M12 6a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Z'/%3E%3Ccircle cx='12' cy='11' r='1.8' fill='white'/%3E%3C/svg%3E"); }
+.botwrap { position: fixed; z-index: 16; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); pointer-events: none; padding-inline: max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-left, 0px)); display: flex; justify-content: flex-end; }
+.botfab { pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--navy); font-weight: 600; box-shadow: 0 6px 20px rgba(27,42,61,0.18); cursor: pointer; }
+.botfab svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+.botpanel { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; bottom: 0; height: min(78vh, 600px); background: var(--bg); border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: 0 -10px 40px rgba(27,42,61,0.22); display: flex; flex-direction: column; }
+.bot__head { display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px max(16px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--line); }
+.bot__head img { width: 38px; height: 38px; mix-blend-mode: multiply; }
+.bot__head b { font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; line-height: 1.1; display: block; }
+.bot__head small { color: var(--muted); font-size: 0.76rem; }
+.bot__x { margin-left: auto; width: 44px; height: 44px; border: 0; background: transparent; font-size: 1.6rem; line-height: 1; cursor: pointer; border-radius: 8px; }
+.bot__log { flex: 1; overflow-y: auto; padding: 16px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 10px; }
+.msg { max-width: 86%; padding: 11px 14px; border-radius: 14px; font-size: 0.95rem; line-height: 1.5; white-space: pre-line; }
+.msg--bot { background: var(--tint); border: 1px solid var(--line); border-bottom-left-radius: 4px; align-self: flex-start; }
+.msg--me { background: var(--navy); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+.msg a { display: inline-block; margin-top: 8px; font-weight: 600; color: var(--navy); text-underline-offset: 3px; text-decoration-color: var(--gold); }
+.msg--warn { background: var(--note-bg); border-color: var(--gold); }
+.bot__chips { display: flex; gap: 8px; overflow-x: auto; padding: 8px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px)); scrollbar-width: none; }
+.bot__chips button { flex: none; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); font-size: 0.86rem; font-weight: 500; cursor: pointer; min-height: 40px; }
+.bot__form { display: flex; gap: 8px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); border-top: 1px solid var(--line); }
+.bot__form input { flex: 1; min-width: 0; min-height: 48px; padding: 10px 14px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; }
+.bot__form button { min-height: 48px; padding: 0 18px; border-radius: 999px; border: 0; background: var(--navy); color: #fff; font-weight: 600; cursor: pointer; }
+.bot__note { text-align: center; font-size: 0.72rem; color: var(--muted); padding: 0 16px 6px; }
+
+[hidden] { display: none !important; }
+`'@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .scale__tick::before { animation: none; } .burger span, .acc summary::after { transition: none; } }
+</style>
+
+<div class="app" id="app">
+
+<header class="head">
+  <div class="in head__row">
+    <a class="brand" href="#inicio"><img class="brand__logo" data-logo alt="" width="44" height="44"><span>Clínica de Dolor Jalisco<small>Dr. Marcos Briseño</small></span></a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="menu in" id="menu" aria-label="Secciones" hidden>
+    <a href="#inicio">Inicio</a>
+    <a href="#doctor">Conoce al doctor</a>
+    <a href="#padecimientos">Padecimientos</a>
+    <a href="#tratamientos">Tratamientos</a>
+    <a href="#consulta">Primera consulta</a>
+    <a href="#ubicaciones">Ubicaciones</a>
+    <a class="btn btn--gold" data-wa href="#consulta">Agendar por WhatsApp</a>
+    <div class="social" aria-label="Redes y contacto">
+      <a data-wa href="#consulta" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.3-.5-.4Z"/></svg></a>
+      <a data-social="instagram" href="https://www.instagram.com/dr_marcosbriseno/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a data-social="facebook" href="https://www.facebook.com/profile.php?id=61594389507985" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.300H8v3h2.500V21h3Z"/></svg></a>
+    </div>
+  </nav>
+</header>
+
+<div class="editbar in" id="editbar" hidden><span id="edit-msg">Modo edición: toca cualquier texto para cambiarlo y toca un recuadro para subir tu foto. Todo se guarda solo en este navegador.</span><div class="editbar__btns"><button type="button" id="ed-copy">Copiar mis cambios</button><button type="button" id="ed-reset">Borrar cambios</button></div><span class="editbar__hint">Pégame lo copiado en el chat, junto con tus fotos y el nombre de cada recuadro, y lo publico para todos.</span></div>
+
+<main id="inicio">
+  <section class="hero on-navy" aria-labelledby="h1">
+    <div class="in">
+      <img class="hero__logo" data-logo alt="Logotipo de Clínica de Dolor Jalisco" width="112" height="112">
+      <p class="eyebrow">Clínica de Dolor Jalisco · Guadalajara</p>
+      <hr class="hero__rule">
+      <h1 id="h1">Dolor que dura meses necesita un <em>diagnóstico preciso.</em></h1>
+      <p class="hero__sub">Soy el Dr. Marcos Briseño. Evalúo dolor de columna, de nervio y de articulación, y realizo procedimientos guiados por imagen y neuromodulación.</p>
+      <div class="hero__cta">
+        <a class="btn btn--gold btn--block" data-wa href="#consulta">Agendar por WhatsApp</a>
+        <a class="btn btn--ghost btn--block" href="#tratamientos">Ver tratamientos</a>
+      </div>
+      <div class="hero__photo"><div class="slot" data-slot="hero-retrato" data-label="Tu retrato principal" data-alt="Retrato del Dr. Marcos Briseño" style="--r:4/5"></div></div>
+      <div class="chips">
+        <span class="chip">Fellowship en dolor crónico</span>
+        <span class="chip">Certificación Abbott</span>
+        <span class="chip">Canadá y Madrid</span>
+        <span class="chip">Universidad de Guadalajara</span>
+      </div>
+    </div>
+    <div class="in scale" role="img" aria-label="Escala visual análoga del dolor de 0 a 10">
+      <div class="scale__ticks" aria-hidden="true"><span class="scale__tick">0</span><span class="scale__tick">1</span><span class="scale__tick">2</span><span class="scale__tick">3</span><span class="scale__tick">4</span><span class="scale__tick">5</span><span class="scale__tick">6</span><span class="scale__tick">7</span><span class="scale__tick">8</span><span class="scale__tick">9</span><span class="scale__tick">10</span></div>
+      <div class="scale__labels" aria-hidden="true"><span>Sin dolor</span><span>Peor dolor imaginable</span></div>
+    </div>
+  </section>
+
+  <section class="impact in" aria-label="Llamado a la acción">
+    <h2>Menos dolor, más vida</h2>
+    <p>En Clínica de Dolor Jalisco, una evaluación a tiempo te dice qué opciones tienes y cuáles no necesitas.</p>
+    <a class="btn" data-wa href="#consulta">Escríbeme por WhatsApp</a>
+  </section>
+
+  <section class="band in" id="doctor" aria-labelledby="doc-t">
+    <div class="about">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="eyebrow">Conoce al doctor</p>
+        <h2 class="h2" id="doc-t">Dr. Marcos Briseño</h2>
+      </div>
+      <div class="slot" data-slot="doctor-consulta" data-label="Tu foto en consulta o con paciente" data-alt="El Dr. Briseño en consulta" style="--r:4/5"></div>
+      <div>
+        <p>Anestesiólogo especialista en medicina del dolor intervencionista. Mis procedimientos se realizan con guía de imagen, y la neuromodulación es mi área de mayor especialización.</p>
+        <p>Atiendo en dos hospitales del área metropolitana de Guadalajara. Antes de proponer un procedimiento, reviso tu historia, tus estudios y lo que ya probaste.</p>
+      </div>
+      <ul class="ledger">
+        <li><span>Pregrado</span><b>Universidad de Guadalajara</b></li>
+        <li><span>Clínica</span><b>Experiencia en Canadá y en Madrid</b></li>
+        <li><span>Fellowship</span><b>Dolor crónico, en Colombia</b></li>
+        <li><span>Certificación</span><b>Abbott, implante de estimulador medular</b></li>
+        <li><span>Docencia</span><b>Presidente del congreso Masterclass of Lower Limb, de anestesia regional</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--alt" id="padecimientos" aria-labelledby="pad-t">
+    <div class="in">
+      <div class="sec-head">
+        <p class="eyebrow">Padecimientos</p>
+        <h2 class="h2" id="pad-t">Dolores que evalúo</h2>
+        <p class="lead">Información general. No sustituye una consulta.</p>
+      </div>
+    </div>
+    <div class="in">
+      <div class="rail" tabindex="0" aria-label="Padecimientos, desliza para ver más">
+        <article class="card">
+          <div class="slot" data-slot="cond-lumbar" data-label="Espalda baja / ciática" data-alt="Dolor lumbar y ciática" style="--r:4/3"></div>
+          <h3>Dolor lumbar y ciática</h3>
+          <p>Dolor en la espalda baja que puede bajar por la pierna. Se valora un procedimiento cuando persiste y tiene un origen identificado.</p>
+          <p class="when">Consulta si lleva más de tres meses o no responde a lo que ya probaste.</p>
+        </article>
+        <article class="card">
+          <div class="slot" data-slot="cond-neuropatico" data-label="Dolor neuropático" data-alt="Dolor neuropático" style="--r:4/3"></div>
+          <h3>Dolor neuropático</h3>
+          <p>Ardor, descargas u hormigueo por un nervio dañado: neuralgia posherpética, neuropatía diabética, neuralgia del trigémino.</p>
+          <p class="when">Consulta si el dolor parece descarga o quemadura y los analgésicos comunes no lo controlan.</p>
+        </article>
+        <article class="card">
+          <div class="slot" data-slot="cond-espalda-fallida" data-label="Espalda fallida" data-alt="Síndrome de espalda fallida" style="--r:4/3"></div>
+          <h3>Espalda fallida</h3>
+          <p>Dolor que continúa o reaparece después de una cirugía de columna. La estimulación medular es una opción en casos seleccionados.</p>
+          <p class="when">Consulta si te operaron la columna y el dolor sigue o volvió.</p>
+        </article>
+        <article class="card">
+          <div class="slot" data-slot="cond-cervical" data-label="Cuello / cabeza" data-alt="Dolor cervical y cefalea" style="--r:4/3"></div>
+          <h3>Cuello y cefalea cervical</h3>
+          <p>Dolor de cuello que puede extenderse a hombros, brazos o cabeza. Se confirma el origen antes de cualquier procedimiento.</p>
+          <p class="when">Consulta si es frecuente y limita tu trabajo o tu sueño.</p>
+        </article>
+        <article class="card">
+          <div class="slot" data-slot="cond-articular" data-label="Rodilla / articulaciones" data-alt="Dolor de rodilla y articulaciones" style="--r:4/3"></div>
+          <h3>Rodilla y articulaciones</h3>
+          <p>En artrosis dolorosa, las infiltraciones y la radiofrecuencia de los nervios de la articulación pueden ser una opción.</p>
+          <p class="when">Consulta si persiste a pesar de rehabilitación y medicamentos.</p>
+        </article>
+      </div>
+      <p class="rail-hint">Desliza para ver más →</p>
+      <p class="alert"><b>Esto no es urgencias.</b> Acude a urgencias si tienes dolor súbito e intenso, debilidad en las piernas, pérdida del control de la orina o las evacuaciones, o fiebre junto con dolor de espalda.</p>
+    </div>
+  </section>
+
+  <section class="band in" id="tratamientos" aria-labelledby="tr-t">
+    <div class="sec-head">
+      <p class="eyebrow">Tratamientos</p>
+      <h2 class="h2" id="tr-t">Intervencionismo después de una evaluación completa</h2>
+      <p class="lead">Se considera cuando el dolor persiste a pesar de medicamentos y rehabilitación. Ningún procedimiento sirve para todos los casos.</p>
+    </div>
+
+    <article class="treat">
+      <div class="slot" data-slot="trat-estimulacion" data-label="Estimulación medular (foto o equipo)" data-alt="Estimulación medular" style="--r:16/10"></div>
+      <h3>Estimulación medular</h3>
+      <p>Un sistema implantado envía impulsos eléctricos suaves cerca de la médula y modifica cómo se procesan las señales de dolor. Se usa en ciertos dolores neuropáticos crónicos cuando otros tratamientos no han bastado. Cuento con certificación Abbott para el implante.</p>
+      <ol class="steps">
+        <li><b>Evaluación</b><span>Revisión de historia, estudios y tratamientos previos.</span></li>
+        <li><b>Prueba temporal</b><span>Verifica si el alivio es suficiente antes de un implante.</span></li>
+        <li><b>Implante definitivo</b><span>Solo si la prueba resulta favorable.</span></li>
+        <li><b>Seguimiento</b><span>Controles y ajustes de programación.</span></li>
+      </ol>
+      <p class="caveat">Busca controlar el dolor y mejorar la función; no elimina la causa en todos los casos. Tiene riesgos como infección o desplazamiento de electrodos. Lo conversamos antes de decidir.</p>
+    </article>
+
+    <article class="treat">
+      <div class="slot" data-slot="trat-radiofrecuencia" data-label="Radiofrecuencia" data-alt="Radiofrecuencia guiada por imagen" style="--r:16/10"></div>
+      <h3>Radiofrecuencia</h3>
+      <p>Aplica calor controlado o pulsos de radiofrecuencia sobre nervios que transmiten el dolor, por ejemplo los de las articulaciones de la columna o la rodilla. Suele precederse de un bloqueo diagnóstico.</p>
+    </article>
+
+    <article class="treat">
+      <div class="slot" data-slot="trat-bloqueos" data-label="Bloqueos guiados por imagen" data-alt="Bloqueos guiados por imagen" style="--r:16/10"></div>
+      <h3>Bloqueos guiados por imagen</h3>
+      <p>Infiltraciones de anestésico y antiinflamatorio sobre nervios, raíces o articulaciones, con fluoroscopía o ultrasonido. Sirven para ubicar la fuente del dolor y, en algunos casos, aliviarlo.</p>
+    </article>
+  </section>
+
+  <section class="band band--alt" id="consulta" aria-labelledby="c-t">
+    <div class="in">
+      <div class="sec-head">
+        <p class="eyebrow">Primera consulta</p>
+        <h2 class="h2" id="c-t">Prepara tu mensaje antes de escribir</h2>
+        <p class="lead">Responde cinco datos y se arma el mensaje para WhatsApp. Con eso te oriento sobre horarios y estudios a llevar.</p>
+      </div>
+      <div class="slot" data-slot="consultorio" data-label="Tu consultorio o sala de espera" data-alt="Consultorio del Dr. Briseño" style="--r:16/10;margin-bottom:20px"></div>
+      <form class="form" id="form" novalidate>
+        <div class="field"><label for="f-n">Tu nombre</label><input type="text" id="f-n" autocomplete="given-name" placeholder="Nombre"></div>
+        <div class="field"><label for="f-z">Zona del dolor</label>
+          <select id="f-z"><option>Espalda baja o pierna</option><option>Cuello o brazo</option><option>Rodilla o cadera</option><option>Hombro</option><option>Cabeza o cara</option><option>Otra zona</option></select></div>
+        <div class="field"><label for="f-t">Tiempo con el dolor</label>
+          <select id="f-t"><option>Menos de 3 meses</option><option selected>De 3 a 12 meses</option><option>Más de un año</option></select></div>
+        <div class="field"><label for="f-e">Intensidad hoy, de 0 a 10</label>
+          <input type="range" id="f-e" min="0" max="10" step="1" value="5">
+          <div class="range-out"><span>0 sin dolor</span><output id="f-eo" for="f-e">5</output><span>10 el peor</span></div></div>
+        <fieldset class="field radios"><legend style="margin-bottom:6px">Tipo de consulta</legend>
+          <label><input type="radio" name="pago" value="Particular" checked> Particular</label>
+          <label><input type="radio" name="pago" value="Con seguro de gastos médicos"> Con seguro</label></fieldset>
+        <div class="field"><label for="f-p">Mensaje que se enviará</label><textarea id="f-p" readonly></textarea></div>
+        <a class="btn btn--solid btn--block" id="f-s" data-wa href="#consulta" role="button">Enviar por WhatsApp</a>
+        <p class="status" id="f-st" role="status" aria-live="polite"></p>
+        <p class="fine">Tus respuestas no se guardan en este sitio. Solo arman el mensaje y tú decides si lo envías.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="band in" id="opiniones" aria-labelledby="o-t" hidden>
+    <div class="sec-head"><p class="eyebrow">Opiniones</p><h2 class="h2" id="o-t">Lo que dicen mis pacientes</h2></div>
+    <div class="rail" id="quotes" style="margin-inline:0;padding-inline:0"></div>
+  </section>
+
+  <section class="band band--alt in" id="galeria" aria-labelledby="g-t">
+    <div class="sec-head">
+      <p class="eyebrow">En la práctica</p>
+      <h2 class="h2" id="g-t">Procedimientos, quirófano y congresos</h2>
+    </div>
+    <div class="gal">
+      <div class="slot" data-slot="galeria-1" data-label="Foto grande: tú en procedimiento" data-alt="El Dr. Briseño en un procedimiento" style="--r:16/9"></div>
+      <div class="slot" data-slot="galeria-2" data-label="Congreso" data-alt="Congreso Masterclass of Lower Limb" style="--r:1/1"></div>
+      <div class="slot" data-slot="galeria-3" data-label="Equipo / quirófano" data-alt="Equipo y quirófano" style="--r:1/1"></div>
+      <div class="slot" data-slot="galeria-4" data-label="Certificación Abbott" data-alt="Certificación Abbott" style="--r:1/1"></div>
+      <div class="slot" data-slot="galeria-5" data-label="Formación / fellowship" data-alt="Formación en Colombia, Canadá y Madrid" style="--r:1/1"></div>
+    </div>
+    <p style="margin-top:16px"><a class="btn btn--instagram btn--block" href="https://www.instagram.com/dr_marcosbriseno" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Ver más en Instagram</a></p>
+  </section>
+
+  <section class="band in" id="ubicaciones" aria-labelledby="u-t">
+    <div class="sec-head">
+      <p class="eyebrow">Ubicaciones</p>
+      <h2 class="h2" id="u-t">Dónde atiendo</h2>
+      <p class="lead">Consultorio, horario y costo se confirman al agendar.</p>
+    </div>
+    <article class="place">
+      <div class="slot" data-slot="sede-san-javier" data-label="Fachada u hospital San Javier" data-alt="Hospital San Javier" style="--r:16/10"></div>
+      <h3>Hospital San Javier</h3>
+      <p>Guadalajara, Jalisco</p>
+      <a class="btn btn--maps btn--block" href="https://www.google.com/maps/search/?api=1&query=Hospital+San+Javier+Guadalajara" target="_blank" rel="noopener">Cómo llegar</a>
+    </article>
+    <article class="place">
+      <div class="slot" data-slot="sede-valle-real" data-label="Fachada u hospital Real San José Valle Real" data-alt="Hospital Real San José Valle Real" style="--r:16/10"></div>
+      <h3>Hospital Real San José Valle Real</h3>
+      <p>Zapopan, Jalisco</p>
+      <a class="btn btn--maps btn--block" href="https://www.google.com/maps/search/?api=1&query=Hospital+Real+San+Jos%C3%A9+Valle+Real+Zapopan" target="_blank" rel="noopener">Cómo llegar</a>
+    </article>
+  </section>
+
+  <section class="band band--alt in" aria-labelledby="q-t">
+    <div class="sec-head"><p class="eyebrow">Preguntas frecuentes</p><h2 class="h2" id="q-t">Antes de tu consulta</h2></div>
+    <div class="acc">
+      <details><summary>¿Qué debo llevar?</summary><div class="acc__body"><p>Estudios de imagen (resonancia, tomografía o radiografías), laboratorios, notas de tu médico y la lista de medicamentos y tratamientos que ya probaste.</p></div></details>
+      <details><summary>¿Cuánto cuesta y aceptan seguro?</summary><div class="acc__body"><p>Te confirmo el costo al agendar y las aseguradoras con las que puedo atenderte. Escríbeme con el nombre de tu aseguradora.</p></div></details>
+      <details><summary>¿Duelen los procedimientos?</summary><div class="acc__body"><p>Se usa anestesia local y, cuando es necesario, sedación. La experiencia varía según el procedimiento y tu caso. Te lo explico antes de que decidas.</p></div></details>
+      <details><summary>¿La estimulación medular cura el dolor?</summary><div class="acc__body"><p>No siempre elimina la causa. Busca reducir el dolor y mejorar tu función. La prueba temporal permite ver cómo respondes antes de decidir un implante definitivo.</p></div></details>
+      <details><summary>¿Atiende urgencias?</summary><div class="acc__body"><p>No. Con dolor súbito e intenso, debilidad en las piernas o pérdida del control de orina o evacuaciones, acude a urgencias.</p></div></details>
+    </div>
+  </section>
+</main>
+
+<footer class="foot in">
+  <div>
+    <div class="foot__brand"><img data-logo alt="" width="56" height="56"><h2>Clínica de Dolor Jalisco</h2></div>
+    <p style="margin-top:10px">Dr. Marcos Briseño · Anestesiología y medicina del dolor intervencionista. Guadalajara, Jalisco.</p>
+  </div>
+  <div class="social" aria-label="Redes y contacto">
+      <a data-wa href="#consulta" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.3-.5-.4Z"/></svg></a>
+      <a data-social="instagram" href="https://www.instagram.com/dr_marcosbriseno/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a data-social="facebook" href="https://www.facebook.com/profile.php?id=61594389507985" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.300H8v3h2.500V21h3Z"/></svg></a>
+    </div>
+  <ul>
+    <li id="ft-ced" hidden></li><li id="ft-esp" hidden></li><li id="ft-av" hidden></li><li id="ft-wa" hidden></li><li id="ft-tel" hidden></li>
+    <li><a href="https://www.instagram.com/dr_marcosbriseno" target="_blank" rel="noopener">Instagram @dr_marcosbriseno</a></li>
+  </ul>
+  <p>La información de este sitio es educativa y no sustituye una consulta médica. Los resultados varían entre pacientes.</p>
+  <details><summary>Aviso de privacidad</summary><p>Los datos que compartes por WhatsApp se usan únicamente para agendar y atender tu consulta. Este sitio no guarda las respuestas del formulario. Para ejercer tus derechos de acceso, rectificación, cancelación u oposición, escríbeme por el mismo medio.</p></details>
+</footer>
+
+<div class="bar">
+  <a class="btn btn--gold" data-wa href="#consulta">WhatsApp</a>
+  <a class="btn btn--ghost" id="bar-tel" href="#consulta" hidden>Llamar</a>
+</div>
+</div>
+
+<div class="botwrap"><button class="botfab" id="botfab" type="button" aria-haspopup="dialog" aria-controls="botpanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.500l1.400-4.600A8 8 0 1 1 21 12Z"/></svg>Preguntas</button></div>
+
+<section class="botpanel" id="botpanel" role="dialog" aria-label="Asistente de preguntas frecuentes" hidden>
+  <div class="bot__head"><img data-logo alt="" width="38" height="38"><div><b>Asistente</b><small>Clínica de Dolor Jalisco</small></div><button class="bot__x" id="botx" type="button" aria-label="Cerrar asistente">×</button></div>
+  <div class="bot__log" id="botlog" aria-live="polite"></div>
+  <div class="bot__chips" id="botchips"></div>
+  <p class="bot__note">Respuestas generales. No sustituyen una consulta médica.</p>
+  <form class="bot__form" id="botform"><input id="botin" type="text" placeholder="Escribe tu pregunta" aria-label="Escribe tu pregunta" autocomplete="off"><button type="submit">Enviar</button></form>
+</section>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Physician","name":"Dr. Marcos Briseño","description":"Anestesiólogo especialista en medicina del dolor intervencionista","areaServed":"Guadalajara, Jalisco, México","sameAs":["https://www.instagram.com/dr_marcosbriseno/","https://www.facebook.com/profile.php?id=61594389507985"]}</script>
+
+<script>
+(function () {
+  // Completa estos datos y vuelve a publicar.
+  // whatsapp/telefono: código de país + 10 dígitos, sin signos. Ej. "5233XXXXXXXX"
+  // opiniones: solo opiniones reales y con permiso. Formato: { texto: "...", autor: "Nombre I." }
+  var CONFIG = {
+    whatsapp: "523316995635", telefono: "",
+    cedulaProfesional: "", cedulaEspecialidad: "", avisoPublicidad: "",
+    opiniones: []
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var num = String(CONFIG.whatsapp || "").replace(/\D/g, "");
+  var tel = String(CONFIG.telefono || "").replace(/\D/g, "");
+  var generic = "Hola Dr. Briseño, quiero agendar una primera consulta.";
+  function waHref(t) { return num ? "https://wa.me/" + num + "?text=" + encodeURIComponent(t) : "#consulta"; }
+  document.querySelectorAll("[data-wa]").forEach(function (a) { a.href = waHref(generic); if (num) { a.target = "_blank"; a.rel = "noopener"; } });
+  function show(id, t) { var el = $(id); if (el && t) { el.textContent = t; el.hidden = false; } }
+  show("ft-ced", CONFIG.cedulaProfesional && "Cédula profesional: " + CONFIG.cedulaProfesional);
+  show("ft-esp", CONFIG.cedulaEspecialidad && "Cédula de especialidad: " + CONFIG.cedulaEspecialidad);
+  show("ft-av", CONFIG.avisoPublicidad && "Aviso de publicidad: " + CONFIG.avisoPublicidad);
+  show("ft-wa", num && "WhatsApp: +" + num);
+  show("ft-tel", tel && "Teléfono: +" + tel);
+  if (tel) { var bt = $("bar-tel"); bt.href = "tel:+" + tel; bt.hidden = false; }
+
+  // menu
+  var burger = $("burger"), menu = $("menu");
+  function setMenu(open) { burger.setAttribute("aria-expanded", open); burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú"); menu.hidden = !open; }
+  burger.addEventListener("click", function () { setMenu(menu.hidden); });
+  menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+
+  // testimonials
+  if (CONFIG.opiniones.length) {
+    var q = $("quotes");
+    CONFIG.opiniones.forEach(function (o) {
+      var d = document.createElement("div"); d.className = "quote";
+      var p = document.createElement("p"); p.textContent = "“" + o.texto + "”";
+      var s = document.createElement("small"); s.textContent = o.autor;
+      d.appendChild(p); d.appendChild(s); q.appendChild(d);
+    });
+    $("opiniones").hidden = false;
+  }
+
+  // ---------- photo slots ----------
+  // Cada recuadro busca fotos/<nombre>.jpg publicada junto a la página.
+  // En modo fotos (abrir el enlace terminado en #editar) puedes subir una foto de prueba;
+  // se guarda solo en este navegador.
+  var DB = null;
+  function openDB() {
+    return new Promise(function (res) {
+      try {
+        var r = indexedDB.open("briseno-fotos", 1);
+        r.onupgradeneeded = function () { r.result.createObjectStore("f"); };
+        r.onsuccess = function () { DB = r.result; res(); };
+        r.onerror = function () { res(); };
+      } catch (e) { res(); }
+    });
+  }
+  function dbGet(k) { return new Promise(function (res) { if (!DB) return res(null); try { var q = DB.transaction("f").objectStore("f").get(k); q.onsuccess = function () { res(q.result || null); }; q.onerror = function () { res(null); }; } catch (e) { res(null); } }); }
+  function dbSet(k, v) { return new Promise(function (res) { if (!DB) return res(false); try { var t = DB.transaction("f", "readwrite"); if (v) t.objectStore("f").put(v, k); else t.objectStore("f").delete(k); t.oncomplete = function () { res(true); }; t.onerror = function () { res(false); }; } catch (e) { res(false); } }); }
+
+  var ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 16-5-5-8 8"/></svg>';
+
+  function setImg(slot, src) {
+    var img = slot.querySelector("img");
+    if (!src) { if (img) img.remove(); slot.classList.remove("has-img"); return; }
+    if (!img) { img = document.createElement("img"); img.alt = slot.dataset.alt || ""; img.loading = "lazy"; img.decoding = "async"; slot.insertBefore(img, slot.firstChild); }
+    img.onload = function () { slot.classList.add("has-img"); };
+    img.onerror = function () { img.remove(); slot.classList.remove("has-img"); };
+    img.src = src;
+  }
+
+  function shrink(file, max) {
+    return new Promise(function (res, rej) {
+      var fr = new FileReader();
+      fr.onerror = rej;
+      fr.onload = function () {
+        var im = new Image();
+        im.onerror = rej;
+        im.onload = function () {
+          var k = Math.min(1, max / Math.max(im.width, im.height));
+          var c = document.createElement("canvas");
+          c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+          c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+          res(c.toDataURL("image/jpeg", 0.86));
+        };
+        im.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
+
+  function buildSlot(slot) {
+    var id = slot.dataset.slot;
+    slot.setAttribute("role", "group");
+    var ph = document.createElement("div");
+    ph.className = "slot__ph";
+    ph.innerHTML = ICON;
+    var b = document.createElement("b"); b.textContent = slot.dataset.label || "Tu foto aquí";
+    var c = document.createElement("code"); c.textContent = "fotos/" + id + ".jpg";
+    ph.appendChild(b); ph.appendChild(c);
+    slot.appendChild(ph);
+
+    var edit = document.createElement("div"); edit.className = "slot__edit";
+    var sp = document.createElement("span"); sp.textContent = "Subir foto";
+    var rm = document.createElement("button"); rm.type = "button"; rm.textContent = "Quitar"; rm.hidden = true;
+    edit.appendChild(sp); edit.appendChild(rm);
+    var inp = document.createElement("input"); inp.type = "file"; inp.accept = "image/*"; inp.setAttribute("aria-label", "Subir foto: " + (slot.dataset.label || id));
+    slot.appendChild(edit); slot.appendChild(inp);
+
+    dbGet(id).then(function (v) {
+      if (v) { setImg(slot, v); rm.hidden = false; }
+      else setImg(slot, "fotos/" + id + ".jpg");
+    });
+
+    inp.addEventListener("change", function () {
+      var f = inp.files && inp.files[0];
+      if (!f) return;
+      shrink(f, 1400).then(function (data) {
+        setImg(slot, data); rm.hidden = false;
+        return dbSet(id, data);
+      }).then(function (ok) {
+        if (ok === false) { $("edit-msg").textContent = "No pude guardar la foto en este navegador, pero la ves en pantalla. Mándamela por el chat para publicarla."; }
+      }).catch(function () {});
+      inp.value = "";
+    });
+    rm.addEventListener("click", function (e) {
+      e.stopPropagation();
+      dbSet(id, null).then(function () { rm.hidden = true; setImg(slot, "fotos/" + id + ".jpg"); });
+    });
+  }
+
+  // ---------- editable texts ----------
+  var TSEL = "main h1, main h2, main h3, main p:not(.status):not(.alert), main .ledger b, main .ledger span, main .steps b, main .steps span, main .chip, .foot h2, .foot p";
+  var els = Array.prototype.slice.call(document.querySelectorAll(TSEL));
+  var orig = els.map(function (el) { return el.textContent.trim(); });
+  function changes() {
+    var m = {};
+    els.forEach(function (el, i) { var t = el.textContent.trim(); if (t !== orig[i]) m[i] = t; });
+    return m;
+  }
+  function saveTexts() { var m = changes(); dbSet("txt", Object.keys(m).length ? m : null); }
+  els.forEach(function (el) { el.addEventListener("input", saveTexts); });
+  $("ed-copy").addEventListener("click", function () {
+    var m = changes(), out = [];
+    Object.keys(m).forEach(function (i) { out.push("ANTES: " + orig[i] + "\nDESPUÉS: " + m[i] + "\n"); });
+    var msg = $("edit-msg");
+    if (!out.length) { msg.textContent = "Aún no has cambiado ningún texto."; return; }
+    var text = out.join("\n");
+    function done(ok) { msg.textContent = ok ? "Copié " + out.length + " cambio(s). Pégalos en el chat." : "No pude copiar. Selecciona los textos y mándamelos por el chat."; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done(true); }).catch(function () { done(false); });
+    else done(false);
+  });
+  $("ed-reset").addEventListener("click", function () {
+    els.forEach(function (el, i) { el.textContent = orig[i]; });
+    dbSet("txt", null);
+    $("edit-msg").textContent = "Textos restablecidos.";
+  });
+
+  function syncEdit() {
+    var on = location.hash === "#editar";
+    $("app").classList.toggle("editing", on);
+    $("editbar").hidden = !on;
+    els.forEach(function (el) {
+      if (on) { el.setAttribute("contenteditable", "plaintext-only"); if (el.contentEditable !== "plaintext-only") el.setAttribute("contenteditable", "true"); }
+      else el.removeAttribute("contenteditable");
+    });
+  }
+
+  openDB().then(function () {
+    document.querySelectorAll(".slot[data-slot]").forEach(buildSlot);
+    dbGet("txt").then(function (m) { if (m) Object.keys(m).forEach(function (i) { if (els[i]) els[i].textContent = m[i]; }); });
+  });
+  window.addEventListener("hashchange", syncEdit);
+  syncEdit();
+
+  // ---------- logo ----------
+  var LOGO = "data:image/jpeg;base64,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";
+  document.querySelectorAll("img[data-logo]").forEach(function (i) { i.src = LOGO; });
+
+  // ---------- assistant (respuestas preestablecidas, no envía nada a ningún servidor) ----------
+  function norm(t) { return String(t).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+  var KB = [
+    { k: ["hola", "buenas", "buenos dias", "buenas tardes", "buenas noches"], a: "Hola, soy el asistente de Clínica de Dolor Jalisco. Puedo orientarte sobre consultas, procedimientos y ubicaciones. ¿Qué quieres saber?" },
+    { k: ["agendar", "cita", "consulta", "reservar", "horario", "disponibilidad", "hablar", "contacto", "whatsapp"], a: "Para agendar, escríbenos por WhatsApp. Ahí confirmamos día, horario y consultorio. Si prefieres, usa la sección Primera consulta de esta página y se arma el mensaje por ti.", act: "wa" },
+    { k: ["costo", "precio", "cuanto cuesta", "cuanto cobra", "tarifa", "honorarios", "pagar"], a: "El costo de la consulta se confirma al agendar, por WhatsApp. Depende del tipo de consulta y de si es particular o con seguro.", act: "wa" },
+    { k: ["seguro", "aseguradora", "gastos medicos", "gnp", "axa", "metlife", "mapfre", "factura"], a: "Se puede atender con seguro de gastos médicos. Escríbenos el nombre de tu aseguradora y te confirmamos las condiciones.", act: "wa" },
+    { k: ["donde", "ubicacion", "direccion", "hospital", "san javier", "valle real", "zapopan", "llegar", "mapa"], a: "Atiende en Hospital San Javier (Guadalajara) y en Hospital Real San José Valle Real (Zapopan). El consultorio exacto se confirma al agendar.", act: "ubic" },
+    { k: ["estimulador", "estimulacion medular", "neuromodulacion", "implante", "abbott", "neuroestimulador"], a: "La estimulación medular envía impulsos eléctricos suaves cerca de la médula para modificar cómo se procesan las señales de dolor. Se considera en ciertos dolores neuropáticos crónicos cuando otros tratamientos no han bastado. Primero hay una prueba temporal. No elimina la causa en todos los casos y tiene riesgos que se explican en consulta. El Dr. Briseño cuenta con certificación Abbott para el implante.", act: "trat" },
+    { k: ["radiofrecuencia"], a: "La radiofrecuencia aplica calor controlado o pulsos sobre nervios que transmiten el dolor, por ejemplo en articulaciones de la columna o la rodilla. Suele precederse de un bloqueo diagnóstico para confirmar el origen del dolor.", act: "trat" },
+    { k: ["bloqueo", "infiltracion", "inyeccion", "fluoroscopia", "ultrasonido"], a: "Los bloqueos son infiltraciones de anestésico y antiinflamatorio sobre nervios, raíces o articulaciones, guiadas por fluoroscopía o ultrasonido. Sirven para ubicar la fuente del dolor y, en algunos casos, aliviarlo.", act: "trat" },
+    { k: ["ciatica", "lumbar", "espalda baja", "lumbalgia", "pierna"], a: "El dolor lumbar y la ciática son motivo frecuente de consulta. Se valora un procedimiento cuando el dolor persiste, tiene un origen identificado y limita tu actividad. Conviene consultar si lleva más de tres meses o no responde a lo que ya probaste.", act: "pad" },
+    { k: ["neuropatico", "neuropatia", "ardor", "hormigueo", "descarga", "herpes", "trigemino", "diabetica"], a: "El dolor neuropático suele sentirse como ardor, descarga u hormigueo. Se maneja con medicamentos específicos y, en casos seleccionados, con procedimientos o neuromodulación. Conviene consultar si los analgésicos comunes no lo controlan.", act: "pad" },
+    { k: ["espalda fallida", "cirugia de columna", "operaron", "operada", "operado"], a: "El síndrome de espalda fallida es el dolor que continúa o reaparece después de una cirugía de columna. Requiere revisar tus estudios y la cirugía previa. La estimulación medular es una de las opciones en casos seleccionados.", act: "pad" },
+    { k: ["cuello", "cervical", "cefalea", "migrana", "cabeza"], a: "El dolor de cuello puede extenderse a hombros, brazos o cabeza. Se confirma el origen del dolor antes de considerar bloqueos o radiofrecuencia. Conviene consultar si es frecuente y limita tu trabajo o tu sueño.", act: "pad" },
+    { k: ["rodilla", "artrosis", "articulacion", "articular", "cadera", "hombro"], a: "En artrosis dolorosa, las infiltraciones y la radiofrecuencia de los nervios de la articulación pueden ser una opción cuando rehabilitación y medicamentos no bastan. Se decide caso por caso.", act: "pad" },
+    { k: ["llevar", "estudios", "resonancia", "tomografia", "radiografia", "laboratorio", "documentos"], a: "Lleva tus estudios de imagen (resonancia, tomografía o radiografías), laboratorios, notas de tu médico y la lista de medicamentos y tratamientos que ya probaste." },
+    { k: ["duele", "dolor del procedimiento", "anestesia", "sedacion", "riesgo", "riesgos", "seguro es"], a: "Se usa anestesia local y, cuando es necesario, sedación. La experiencia y los riesgos varían según el procedimiento y tu caso. El doctor te los explica antes de que decidas." },
+    { k: ["curar", "cura", "garantiza", "garantia", "funciona", "resultado", "resultados"], a: "Los resultados varían entre pacientes y no se pueden garantizar. El objetivo suele ser reducir el dolor y mejorar la función. Lo ideal es valorar tu caso en consulta." },
+    { k: ["medicamento", "pastilla", "tomar", "dosis", "paracetamol", "ibuprofeno", "tramadol"], a: "No puedo recomendar medicamentos ni dosis por este medio. Eso se define en consulta, con tu historia clínica." },
+    { k: ["doctor", "medico", "briseno", "formacion", "estudio", "especialidad", "quien"], a: "El Dr. Marcos Briseño es anestesiólogo especialista en medicina del dolor intervencionista. Se formó en la Universidad de Guadalajara, tiene experiencia clínica en Canadá y Madrid, un fellowship en dolor crónico en Colombia y certificación Abbott para estimuladores medulares.", act: "doc" },
+    { k: ["instagram", "facebook", "redes"], a: "Nos encuentras en Instagram como @dr_marcosbriseno y en Facebook. Los enlaces están al final de la página." }
+  ];
+  var RED = ["no puedo mover", "no siento las piernas", "debilidad", "no controlo", "no puedo orinar", "orino sin", "evacuar", "fiebre", "urgencia", "urgente", "emergencia", "de repente", "muy fuerte", "no aguanto", "pecho"];
+  var FALLBACK = "No tengo una respuesta segura para eso. Para no darte información equivocada, mejor pregúntalo directamente al consultorio por WhatsApp.";
+  var CHIPS = ["¿Cómo agendo una cita?", "¿Cuánto cuesta?", "¿Aceptan seguro?", "¿Dónde atienden?", "¿Qué es la estimulación medular?", "¿Qué debo llevar?"];
+
+  var panel = $("botpanel"), fab = $("botfab"), log = $("botlog"), chips = $("botchips"), bin = $("botin");
+  function addMsg(text, who, cls, link) {
+    var d = document.createElement("div"); d.className = "msg msg--" + who + (cls ? " " + cls : "");
+    d.appendChild(document.createTextNode(text));
+    if (link) { d.appendChild(document.createElement("br")); d.appendChild(link); }
+    log.appendChild(d); log.scrollTop = log.scrollHeight; return d;
+  }
+  function mkLink(kind) {
+    var a = document.createElement("a");
+    if (kind === "wa") { a.href = waHref("Hola Dr. Briseño, tengo una pregunta."); a.className = "wa-link"; a.textContent = "Escribir por WhatsApp"; if (num) { a.target = "_blank"; a.rel = "noopener"; } }
+    else {
+      var m = { ubic: ["#ubicaciones", "Ver ubicaciones"], trat: ["#tratamientos", "Ver tratamientos"], pad: ["#padecimientos", "Ver padecimientos"], doc: ["#doctor", "Conocer al doctor"] }[kind];
+      a.href = m[0]; a.textContent = m[1];
+      a.addEventListener("click", function () { closeBot(); });
+    }
+    return a;
+  }
+  function answer(q) {
+    var n = norm(q);
+    for (var i = 0; i < RED.length; i++) if (n.indexOf(norm(RED[i])) !== -1) {
+      addMsg("Si tienes dolor súbito e intenso, debilidad en las piernas, pérdida del control de la orina o las evacuaciones, o fiebre junto con dolor de espalda, acude a urgencias. Esta página no atiende urgencias.", "bot", "msg--warn"); return;
+    }
+    var best = null, score = 0;
+    KB.forEach(function (e) {
+      var sc = 0; e.k.forEach(function (w) { if (n.indexOf(norm(w)) !== -1) sc += norm(w).length > 5 ? 2 : 1; });
+      if (sc > score) { score = sc; best = e; }
+    });
+    if (best) addMsg(best.a, "bot", "", best.act ? mkLink(best.act) : null);
+    else addMsg(FALLBACK, "bot", "", mkLink("wa"));
+  }
+  function ask(q) { q = q.trim(); if (!q) return; addMsg(q, "me"); setTimeout(function () { answer(q); }, 250); }
+  function openBot() {
+    panel.hidden = false; fab.hidden = true;
+    if (!log.children.length) addMsg("Hola, soy el asistente de Clínica de Dolor Jalisco. Elige una pregunta o escribe la tuya.", "bot");
+    bin.focus();
+  }
+  function closeBot() { panel.hidden = true; fab.hidden = false; fab.focus(); }
+  CHIPS.forEach(function (c) { var b = document.createElement("button"); b.type = "button"; b.textContent = c; b.addEventListener("click", function () { ask(c); }); chips.appendChild(b); });
+  fab.addEventListener("click", openBot);
+  $("botx").addEventListener("click", closeBot);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) closeBot(); });
+  $("botform").addEventListener("submit", function (e) { e.preventDefault(); ask(bin.value); bin.value = ""; });
+
+  // ---------- first-visit message ----------
+  var form = $("form"), fn = $("f-n"), fz = $("f-z"), ft = $("f-t"), fe = $("f-e"), feo = $("f-eo"), fp = $("f-p"), fs = $("f-s"), fst = $("f-st");
+  function pago() { var r = form.querySelector('input[name="pago"]:checked'); return r ? r.value : "Particular"; }
+  function message() {
+    var n = fn.value.trim();
+    return ["Hola Dr. Briseño, quiero agendar una primera consulta.", n ? "Nombre: " + n : null, "Zona del dolor: " + fz.value, "Tiempo con el dolor: " + ft.value, "Intensidad hoy (0 a 10): " + fe.value, "Tipo de consulta: " + pago()].filter(Boolean).join("\n");
+  }
+  function refresh() {
+    feo.textContent = fe.value; var t = message(); fp.value = t; fs.href = waHref(t);
+    fs.textContent = num ? "Enviar por WhatsApp" : "Copiar mensaje";
+    if (num) { fs.target = "_blank"; fs.rel = "noopener"; }
+  }
+  function fallbackCopy() {
+    fp.removeAttribute("readonly"); fp.focus(); fp.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+    fp.setAttribute("readonly", "");
+    fst.textContent = ok ? "Mensaje copiado. Pégalo en WhatsApp." : "Selecciona el texto y cópialo para pegarlo en WhatsApp.";
+  }
+  fs.addEventListener("click", function (e) {
+    if (num) { fst.textContent = ""; return; }
+    e.preventDefault();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(message()).then(function () { fst.textContent = "Mensaje copiado. Pégalo en WhatsApp."; }).catch(fallbackCopy);
+    } else fallbackCopy();
+  });
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+  form.addEventListener("input", refresh);
+  form.addEventListener("change", refresh);
+  refresh();
+})();
+</script>
+
+</body></html>
