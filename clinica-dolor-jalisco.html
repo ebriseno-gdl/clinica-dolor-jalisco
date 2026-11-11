@@ -533,7 +533,14 @@ img[data-logo] { clip-path: circle(43%); mix-blend-mode: normal !important; back
   <form class="bot__form" id="botform"><input id="botin" type="text" placeholder="Escribe tu pregunta" aria-label="Escribe tu pregunta" autocomplete="off"><button type="submit">Enviar</button></form>
 </section>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Physician","name":"Dr. Marcos Briseño","description":"Anestesiólogo especialista en medicina del dolor intervencionista","areaServed":"Guadalajara, Jalisco, México","sameAs":["https://www.instagram.com/dr_marcosbriseno/","https://www.facebook.com/profile.php?id=61594389507985"]}</script>
+<script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Physician",
+    "name":"Dr. Marcos Briseño",
+    "description":"Anestesiólogo especialista en medicina del dolor intervencionista",
+    "areaServed":"Guadalajara, Jalisco, México",
+    "sameAs":["https://www.instagram.com/dr_marcosbriseno/","https://www.facebook.com/profile.php?id=61594389507985"]}</script>
 
 <script>
 (function () {
@@ -579,7 +586,7 @@ img[data-logo] { clip-path: circle(43%); mix-blend-mode: normal !important; back
   }
 
   // ---------- photo slots ----------
-  // Cada recuadro busca fotos/<nombre>.jpg publicada junto a la página.
+  // Cada recuadro busca fotos/<nombre>.webp publicada junto a la página.
   // En modo fotos (abrir el enlace terminado en #editar) puedes subir una foto de prueba;
   // se guarda solo en este navegador.
   var DB = null;
@@ -634,7 +641,7 @@ img[data-logo] { clip-path: circle(43%); mix-blend-mode: normal !important; back
     ph.className = "slot__ph";
     ph.innerHTML = ICON;
     var b = document.createElement("b"); b.textContent = slot.dataset.label || "Tu foto aquí";
-    var c = document.createElement("code"); c.textContent = "fotos/" + id + ".jpg";
+    var c = document.createElement("code"); c.textContent = "fotos/" + id + ".webp";
     ph.appendChild(b); ph.appendChild(c);
     slot.appendChild(ph);
 
@@ -647,7 +654,7 @@ img[data-logo] { clip-path: circle(43%); mix-blend-mode: normal !important; back
 
     dbGet(id).then(function (v) {
       if (v) { setImg(slot, v); rm.hidden = false; }
-      else setImg(slot, "fotos/" + id + ".jpg");
+      else setImg(slot, "fotos/" + id + ".webp");
     });
 
     inp.addEventListener("change", function () {
@@ -663,7 +670,7 @@ img[data-logo] { clip-path: circle(43%); mix-blend-mode: normal !important; back
     });
     rm.addEventListener("click", function (e) {
       e.stopPropagation();
-      dbSet(id, null).then(function () { rm.hidden = true; setImg(slot, "fotos/" + id + ".jpg"); });
+      dbSet(id, null).then(function () { rm.hidden = true; setImg(slot, "fotos/" + id + ".webp"); });
     });
   }
 
