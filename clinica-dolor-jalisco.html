@@ -182,7 +182,7 @@
     .ledger b { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; line-height: 1.25; }
 
     /* horizontal cards */
-     { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); scrollbar-width: thin; }
+    .rail { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); scrollbar-width: thin; }
     .card { flex: 0 0 78%; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 12px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
     .card h3 { font-size: 1.35rem; padding-inline: 4px; }
     .card p { color: var(--muted); font-size: 0.95rem; padding-inline: 4px; }
@@ -297,7 +297,58 @@
     .bot__note { text-align: center; font-size: 0.72rem; color: var(--muted); padding: 0 16px 6px; }
 
     [hidden] { display: none !important; }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .scale__tick::before { animation: none; } .burger span, .acc summary::after { transition: none; } }
+    @media (prefers-reduced-motion: reduce) 
+    { 
+      html 
+      { 
+        scroll-behavior: auto;
+      } 
+      .scale__tick::before 
+      { 
+        animation: none; 
+      } 
+      .burger span, .acc summary::after 
+      { 
+        transition: none;
+       }
+    }
+
+    @media (min-width: 540px) {
+      .app {
+        max-width: 768px;
+      }
+    }
+
+    @media (min-width: 760px) {
+      .rail {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        overflow-x: visible;
+        scroll-snap-type: none;
+        margin-inline: 0;
+        padding-inline: 0;
+      }
+
+      .rail .card {
+        flex: initial;
+      }
+
+      .rail-hint {
+        display: none;
+      }
+
+      .rail .slot {
+        height: clamp(140px, 22vh, 220px);
+        aspect-ratio: auto;
+      }
+    }
+
+    @media (min-width: 760px) and (max-height: 700px) {
+      .rail .slot {
+        height: clamp(110px, 20vh, 160px);
+      }
+    }
+    
   </style>
 
 </head>
